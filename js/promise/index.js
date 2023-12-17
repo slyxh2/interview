@@ -116,6 +116,7 @@ class _Promise {
 
         onFulfilled = handleOnFulfilled(onFulfilled, retrunResolveFn, returnRjectFn, returnPromise);
         onRejected = handleOnRejected(onRejected, retrunResolveFn, returnRjectFn, returnPromise);
+
         if (this.PromiseState === PENDING) {
             if (onFulfilled) this.#resolveQueue.push(onFulfilled);
             if (onRejected) this.#rejectQueue.push(onRejected);
@@ -125,6 +126,22 @@ class _Promise {
             onRejected(this.PromiseResult);
         }
         return returnPromise;
+    }
+    catch(onRejected) {
+        return this.then(undefined, onRejected);
+    }
+    finally(onFinally) {
+        if (isFunction(onFinally)) {
+            return this.then(
+                (value) => Promise.resolve(onFinally()).then(() => value),
+                (reason) =>
+                    Promise.resolve(onFinally()).then(() => {
+                        throw reason;
+                    }),
+            );
+        } else {
+            return this.then(onFinally, onFinally);
+        }
     }
     resolve = (value) => {
         if (this.PromiseState !== PENDING) return;
@@ -181,6 +198,75 @@ class _Promise {
                     item.then(onFulfilled, onRejected)
                 } else {
                     _Promise.resolve(item).then(onFulfilled, onRejected);
+                }
+            }
+        })
+    }
+
+    static allSettled(arr) {
+        return new _Promise((resolve, reject) => {
+            let input = [...arr];
+            let count = 0;
+            let result = [];
+            for (let i = 0; i < input.length; i++) {
+                let curr = input[i];
+                const onFulfilled = (value) => {
+                    count++;
+                    result[i] = {
+                        status: FULFILLED,
+                        value
+                    }
+                    if (count === input.length) resolve(result);
+                };
+                const onRejected = (reason) => {
+                    count++;
+                    result[i] = {
+                        status: REJECTED,
+                        reason
+                    }
+                    if (count === input.length) resolve(result);
+                }
+                if (isPromise(curr)) {
+                    curr.then(onFulfilled, onRejected);
+                } else {
+                    _Promise.resolve(curr).then(onFulfilled, onRejected);
+                }
+            }
+        })
+    }
+
+    static any(arr) {
+        return new _Promise((resolve, reject) => {
+            let input = [...arr];
+            let count = 0;
+            for (let i = 0; i < input.length; i++) {
+                let item = input[i];
+                const onFulfilled = (value) => {
+                    resolve(value);
+                }
+                const onRejected = (reason) => {
+                    count++;
+                    if (count === input.length) {
+                        reject(new AggregateError('No Promise in Promise.any was resolved'));
+                    }
+                }
+                if (isPromise(item)) {
+                    item.then(onFulfilled, onRejected)
+                } else {
+                    _Promise.resolve(item).then(onFulfilled, onRejected);
+                }
+            }
+        })
+    }
+    static race(arr) {
+        return new _Promise((resolve, reject) => {
+            let input = [...arr];
+            for (let i = 0; i < input.length; i++) {
+                let item = input[i];
+                if (isPromise(item)) {
+                    item.then(resolve, reject)
+                } else {
+                    _Promise.resolve(item).then(resolve, reject);
                 }
             }
         })
