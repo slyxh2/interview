@@ -4,5 +4,12 @@ module.exports = {
         "@babel/preset-react",
         "@babel/preset-typescript",
     ],
-    "plugins": ["react-refresh/babel"]
+    "plugins": [
+        "react-refresh/babel",
+        ["auto-import", {
+            "declarations": [
+                { "default": "React", "path": "react" }
+            ]
+        }]
+    ]
 }

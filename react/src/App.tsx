@@ -1,9 +1,7 @@
-import React from 'react';
-import Bar from './components/Bar';
+import Update from './components/Update';
 const App = () => {
     return <>
-        <div>A2p2p2</div>
-        <Bar />
+        <Update />
     </>
 }
 
