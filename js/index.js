@@ -1,9 +1,7 @@
-function test() {
-    console.log(this);
-    function inner() {
-        console.log(this);
-    }
-    inner();
-}
+try {
+    throw 1;
 
-test.call({ a: 2 });
+} catch (e) {
+    console.log(222)
+    console.log('error', e);
+}
