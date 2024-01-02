@@ -1,32 +1,21 @@
 import { useEffect, useState, useLayoutEffect } from "react";
 
 function App() {
+    const [num, setNum] = useState(0);
+    console.log(1);
 
-    console.log('app');
-    const [num, updateNum] = useState(0);
-    useEffect(() => {
-        console.log('App mount');
-    }, []);
-    Promise.resolve().then(() => {
-        console.log("promise");
-    })
-
-    useLayoutEffect(() => {
-        console.log('useLayoutEffect')
-    }, [])
-
-    useEffect(() => {
-        console.log('num change create', num);
-        return () => {
-            console.log('num change destroy', num);
-        };
+    useEffect(function innerEffect() {
+        console.log(2);
     }, [num]);
+    Promise.resolve().then(() => console.log(3));
 
-    return (
-        <div onClick={() => updateNum(num + 1)}>
-            {num === 0 ? <Child /> : 'noop'}
-        </div>
-    );
+    setTimeout(() => console.log(4), 0);
+
+    return <>
+        <Child />
+        <div onClick={() => setNum(num + 1)}>open console to see the logs</div>
+        <div>{num}</div>
+    </>
 }
 
 function Child() {
