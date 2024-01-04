@@ -1,14 +1,3 @@
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- * 
- */
-
-/* eslint-disable no-var */
-
 import { enableSchedulerDebugging, enableProfiling, enableIsInputPending, enableIsInputPendingContinuous, frameYieldMs, continuousYieldMs, maxYieldMs, userBlockingPriorityTimeout, lowPriorityTimeout, normalPriorityTimeout } from '../SchedulerFeatureFlags.js';
 import { push, pop, peek } from '../SchedulerMinHeap.js';
 
@@ -17,7 +6,6 @@ import { ImmediatePriority, UserBlockingPriority, NormalPriority, LowPriority, I
 import { markTaskRun, markTaskYield, markTaskCompleted, markTaskCanceled, markTaskErrored, markSchedulerSuspended, markSchedulerUnsuspended, markTaskStart, stopLoggingProfilingEvents, startLoggingProfilingEvents } from '../SchedulerProfiling.js';
 let getCurrentTime;
 const hasPerformanceNow =
-  // $FlowFixMe[method-unbinding]
   typeof performance === 'object' && typeof performance.now === 'function';
 if (hasPerformanceNow) {
   const localPerformance = performance;

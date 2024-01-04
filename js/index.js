@@ -1,23 +1,19 @@
-const set = new Set();
-
-const arr = new Array(set);
-arr[1] = 1;
-arr[2] = 2;
-
-console.log(arr);
-
-Array.prototype[Symbol.iterator] = function* () {
-    for (let i = 0; i < this.length; i++) {
-        yield this[i];
+const btn = document.querySelector('#btn');
+btn.addEventListener('click', () => {
+    console.log('click')
+})
+requestIdleCallback(() => {
+    console.log(1);
+})
+requestAnimationFrame(() => {
+    console.log("requestAnimationFrame");
+})
+setTimeout(() => {
+    let start = Date.now();
+    // btn.innerText = '22';
+    btn.style.transform = 'translateX(100px)';
+    while (Date.now() - start < 2000) {
+        console.log(0);
     }
-}
-
-// const fn = arr[Symbol.iterator]();
-
-// console.log(fn.next());
-// arr.length = 1;
-// console.log(fn.next());
-
-for (const item of arr) {
-    console.log(item);
-}
+    Promise.resolve().then(() => console.log(777))
+}, 0)
