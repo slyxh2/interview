@@ -1,30 +1,27 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+// import React from './components/React.vue';
+import Trigger from './components/Trigger.vue';
+let num = 2;
+let flag = false;
+function handleClick() {
+  console.log(22);
+  flag = false;
+}
 </script>
 
 <template>
   <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+    {{ num }}
+    <button @click="handleClick">+++</button>
+    <span :flag="flag">I am just a span</span>
+    <!-- <Hello /> -->
+    <!-- <React /> -->
+    <Trigger />
   </div>
-  <HelloWorld msg="Vissste + Vues" />
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+button{
+  border: 10px solid black;
 }
 </style>

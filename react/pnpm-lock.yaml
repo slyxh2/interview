@@ -6,11 +6,11 @@ settings:
 
 dependencies:
   react:
-    specifier: ^18.2.0
-    version: 18.2.0
+    specifier: 18.3.0-canary-31603f19d-20240109
+    version: 18.3.0-canary-31603f19d-20240109
   react-dom:
-    specifier: ^18.2.0
-    version: 18.2.0(react@18.2.0)
+    specifier: 18.3.0-canary-31603f19d-20240109
+    version: 18.3.0-canary-31603f19d-20240109(react@18.3.0-canary-31603f19d-20240109)
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -3354,14 +3354,14 @@ packages:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
 
-  /react-dom@18.2.0(react@18.2.0):
-    resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
+  /react-dom@18.3.0-canary-31603f19d-20240109(react@18.3.0-canary-31603f19d-20240109):
+    resolution: {integrity: sha512-ZJG4jMO6Uq3soB6qn4ZY2FYzxWRFIJUy9iUbwMj2tVaNDISBlNHZjiK9loscCkToetidOBZaj0Vmg7FWiKZu8A==}
     peerDependencies:
-      react: ^18.2.0
+      react: 18.3.0-canary-31603f19d-20240109
     dependencies:
       loose-envify: 1.4.0
-      react: 18.2.0
-      scheduler: 0.23.0
+      react: 18.3.0-canary-31603f19d-20240109
+      scheduler: 0.24.0-canary-31603f19d-20240109
     dev: false
 
   /react-refresh@0.14.0:
@@ -3369,8 +3369,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react@18.2.0:
-    resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
+  /react@18.3.0-canary-31603f19d-20240109:
+    resolution: {integrity: sha512-U+ZlQ6+J5KmVpFLQUB5xNx2x39ogrp0VNcPvDofLSoTl0G4njcMshrilGPUBZfJlgRarC8nyxeE6bkZJ0SRhRQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       loose-envify: 1.4.0
@@ -3511,8 +3511,8 @@ packages:
   /safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
 
-  /scheduler@0.23.0:
-    resolution: {integrity: sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==}
+  /scheduler@0.24.0-canary-31603f19d-20240109:
+    resolution: {integrity: sha512-pzYDJeFtkNSktbAV5SYwZ8kPr23Qn/0UXCcV+9Wr9wd9/tE+U3MjgUSvi3KfMLNuZLOUxKJ8Nv4h2QJkdtmF4w==}
     dependencies:
       loose-envify: 1.4.0
     dev: false

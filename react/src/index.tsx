@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './App';
+import { ThemeContext } from './context';
 
 const root = createRoot(document.getElementById('root')!);
-Promise.resolve().then(() => console.log('try2'))
 
-root.render(<App />);
-Promise.resolve().then(() => console.log('try'))
-// console.log('index')
+root.render(
+    <ThemeContext.Provider value='dark'>
+        <App />
+    </ThemeContext.Provider>
+);
