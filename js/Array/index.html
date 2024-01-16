@@ -12,17 +12,12 @@
 </body>
 <script src="./index.js"></script>
 <script>
-    const array1 = [5, 12, 8, 130, 44];
+    const isBelowThreshold = (currentValue) => currentValue < 40;
 
-    let index = 2;
+    const array1 = [1, 30, 39, 29, 10, 13];
 
-    console.log(`An index of ${index} returns ${array1.at(index)}`);
-    // Expected output: "An index of 2 returns 8"
-
-    index = -2;
-
-    console.log(`An index of ${index} returns ${array1.at(index)}`);
-    // Expected output: "An index of -2 returns 130"
+    console.log(array1.every(isBelowThreshold));
+    // Expected output: true
 </script>
 
 </html>

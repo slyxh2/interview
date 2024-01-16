@@ -17,6 +17,10 @@ export default defineConfig({
       {
         text: 'JavaScript',
         items: getMarkdown('JavaScript')
+      },
+      {
+        text: 'compiler',
+        items: getMarkdown('compiler')
       }
     ],
 

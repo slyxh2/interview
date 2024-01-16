@@ -1,19 +1,14 @@
-const btn = document.querySelector('#btn');
-btn.addEventListener('click', () => {
-    console.log('click')
-})
-requestIdleCallback(() => {
-    console.log(1);
-})
-requestAnimationFrame(() => {
-    console.log("requestAnimationFrame");
-})
-setTimeout(() => {
-    let start = Date.now();
-    // btn.innerText = '22';
-    btn.style.transform = 'translateX(100px)';
-    while (Date.now() - start < 2000) {
-        console.log(0);
+const getAll = async () => {
+    const prev = performance.now();
+    while (performance.now() - prev < 100) {
+        console.log(2);
     }
-    Promise.resolve().then(() => console.log(777))
-}, 0)
+    return Promise.resolve([1, 2, 3]);
+};
+
+const fn = async () => {
+    const res = await getAll();
+    console.log(res);
+}
+
+fn();
