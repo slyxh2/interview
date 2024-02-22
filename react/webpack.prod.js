@@ -1,9 +1,12 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 
 module.exports = {
     entry: "./src/index.tsx",
+    output: {
+        path: path.resolve(__dirname, './dist'),
+        filename: 'main.js'
+    },
     module: {
         rules: [
             {
@@ -30,26 +33,18 @@ module.exports = {
                 test: /\.tsx?$/,
                 include: path.resolve(__dirname, './src'),
                 loader: "babel-loader",
+                exclude: /node_modules/,
                 options: {
-                    cacheDirectory: true,
-                    cacheCompression: false
+                    configFile: path.resolve(__dirname, './babel.transform.js'),
                 }
             }
         ]
     },
     plugins: [new HtmlWebpackPlugin({
         template: path.resolve(__dirname, "./public/index.html")
-    }), new ReactRefreshWebpackPlugin()],
-    mode: "development",
-    target: 'web',
-    devtool: "cheap-module-source-map",
+    })],
+    mode: "production",
     resolve: {
         extensions: [".js", ".ts", ".tsx"]
-    },
-    devServer: {
-        hot: true,
-        open: true,
-        https: true,
-        historyApiFallback: true,
-    },
+    }
 }

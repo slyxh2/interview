@@ -1,54 +1,81 @@
-// @ts-ignore
-import { useState, use, useContext, Suspense, useEffect } from "react";
-import { ThemeContext } from "./context";
+import React, { useState, lazy, useEffect } from "react";
+import { RouterProvider, createBrowserRouter, useNavigate } from 'react-router-dom'
 
-const delay = (t) =>
-    new Promise((r) => {
-        setTimeout(r, t);
-    });
+import AliveDemo from "./Demo/AliveDemo";
+import { getHello, login } from "./api";
+const Bar = lazy(() => import("./components/Bar"));
+const Update = lazy(() => import("./components/Update"));
 
-const cachePool: any[] = [];
+import './style/index.css';
 
-function fetchData(id, timeout) {
-    const cache = cachePool[id];
-    if (cache) {
-        return cache;
+function LoginForm() {
+    const [username, setUsername] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+    const handleLogin = (event: React.FormEvent) => {
+        event.preventDefault();
+        login(username, password);
     }
-    return (cachePool[id] = delay(timeout).then(() => {
-        return { data: Math.random().toFixed(2) * 100 };
-    }));
+    return <form onSubmit={(e) => handleLogin(e)}>
+        <label htmlFor="username">UserName</label>
+        <input type="text" id="username" value={username} onChange={(e) => setUsername(e.target.value)} />
+        <label htmlFor="password">Password</label>
+        <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <input type="submit" value="Login" />
+    </form>
 }
 
-function Cpn({ id, timeout }) {
-    const [num, updateNum] = useState(0);
-    const { data } = use(fetchData(id, timeout));
-
-    if (num !== 0 && num % 5 === 0) {
-        cachePool[id] = null;
+function RequestComponent() {
+    const [isLoading, setLoading] = useState<boolean>(true);
+    const [str, setStr] = useState<string>('');
+    const sendHello = () => {
+        getHello().then((res) => {
+            console.log(res);
+            setStr(res?.data || 'Not Login');
+            setLoading(false);
+        })
     }
-
     useEffect(() => {
-        console.log('effect create');
-        return () => console.log('effect destroy');
-    }, []);
-
-    return (
-        <ul onClick={() => updateNum(num + 1)}>
-            <li>ID: {id}</li>
-            <li>随机数: {data}</li>
-            <li>状态: {num}</li>
-        </ul>
-    );
+        sendHello();
+    }, [])
+    if (isLoading) return <div>Loading...</div>
+    return <div>
+        <h1 onClick={sendHello}>RequestComponent</h1>
+        <h2>{str}</h2>
+        <LoginForm />
+    </div>
 }
 
+function Main() {
+    const [flag, setFlag] = useState(false);
+    const navigate = useNavigate();
+    return <>
+        <h1>APP</h1>
+        <button onClick={() => setFlag(!flag)}>CHANGE</button>
+        {
+            flag ? <div>FALSE</div> : <AliveDemo />
+        }
+        <button onClick={() => navigate('/update')}>Go to Update</button>
+        <button onClick={() => navigate('/bar')}>Go to Bar</button>
+        <RequestComponent />
+    </>
+}
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: <Main />
+    },
+    {
+        path: '/bar',
+        element: <Bar />
+    },
+    {
+        path: '/update',
+        element: <Update />
+    }
+])
 function App() {
-    return (
-        <Suspense fallback={<div>loading...</div>}>
-            <Cpn id={0} timeout={1000} />
-        </Suspense>
-        // <Cpn id={0} timeout={1000} />
-    );
+    return <RouterProvider router={router} />
 }
-
 
 export default App;
